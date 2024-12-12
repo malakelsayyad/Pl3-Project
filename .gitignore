@@ -1,0 +1,41 @@
+# Ignore build directories and files
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.log
+
+# Ignore user-specific files
+*.user
+*.suo
+*.csproj.user
+
+# Ignore compiled files
+*.fsx
+*.fsscript
+
+# Ignore temporary files
+*.tmp
+*.bak
+*.swp
+*.DS_Store
+
+# Ignore Visual Studio-specific files
+.vscode/
+.vs/
+*.sln
+
+# Ignore system-specific files
+Thumbs.db
+Desktop.ini
+
+
+# Ignore backups or generated files
+*.bak
+*.old
+*.orig
+
+# Ignore package manager folders
+node_modules/
+packages/
