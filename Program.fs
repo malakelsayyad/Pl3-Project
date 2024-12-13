@@ -39,3 +39,29 @@ let addWord word definition =
     dictionary <- dictionary.Add(normalizedWord, definition)
 
 
+let addWord word definition =
+    let normalizedWord = normalizeKey word
+    dictionary <- dictionary.Add(normalizedWord, definition)
+
+let updateWord word definition =
+    let normalizedWord = normalizeKey word
+    if dictionary.ContainsKey(normalizedWord) then
+        dictionary <- dictionary.Add(normalizedWord, definition)
+        true
+    else
+        false
+
+let deleteWord word =
+    let normalizedWord = normalizeKey word
+    if dictionary.ContainsKey(normalizedWord) then
+        dictionary <- dictionary.Remove(normalizedWord)
+        true
+    else
+        false
+
+let searchWord word =
+    let normalizedWord = normalizeKey word
+    dictionary.TryFind(normalizedWord)
+
+let listAllWords () =
+    dictionary |> Map.toList
