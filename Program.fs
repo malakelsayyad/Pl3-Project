@@ -94,3 +94,28 @@ let createMainForm () =
 
     // Add Main Layout to Form
     form.Controls.Add(mainLayout)
+    // Button Panel
+    let buttonPanel = new FlowLayoutPanel(Dock = DockStyle.Fill, FlowDirection = FlowDirection.LeftToRight, AutoSize = true)
+    let Addbtn = new Button(Text = "Add", Font = new Font("Arial", 14.0f), BackColor = Color.MediumSeaGreen, ForeColor = Color.Black, Width = 100, Height = 50)
+    let Updatebtn = new Button(Text = "Update", Font = new Font("Arial", 14.0f), BackColor = Color.Goldenrod, ForeColor = Color.Black, Width = 100, Height = 50)
+    let Deletebtn = new Button(Text = "Delete", Font = new Font("Arial", 14.0f), BackColor = Color.Crimson, ForeColor = Color.Black, Width = 100, Height = 50)
+    let Searchbtn = new Button(Text = "Search", Font = new Font("Arial", 14.0f), BackColor = Color.DodgerBlue, ForeColor = Color.Black, Width = 100, Height = 50)
+    let ListAllbtn = new Button(Text = "List All", Font = new Font("Arial", 14.0f), BackColor = Color.Orchid, ForeColor = Color.Black, Width = 100, Height = 50)
+
+    buttonPanel.Controls.AddRange [| Addbtn; Updatebtn; Deletebtn; Searchbtn; ListAllbtn |]
+
+    // Add buttonPanel to topPanel
+    topPanel.Controls.Add(buttonPanel, 0, 2)
+    topPanel.SetColumnSpan(buttonPanel, 2)
+
+    // DataGridView
+    let dgvWords = new DataGridView(Dock = DockStyle.Fill)
+    dgvWords.ColumnCount <- 2
+    dgvWords.Columns.[0].Name <- "Word"
+    dgvWords.Columns.[1].Name <- "Definition"
+    dgvWords.AutoSizeColumnsMode <- DataGridViewAutoSizeColumnsMode.Fill
+    dgvWords.BackgroundColor <- Color.AliceBlue
+    dgvWords.RowHeadersVisible <- false
+
+    // Add DataGridView to Main Layout
+    mainLayout.Controls.Add(dgvWords, 0, 1)
