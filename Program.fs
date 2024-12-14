@@ -4,22 +4,22 @@ open System.Drawing
 open System.IO
 open Newtonsoft.Json
 
-// Dictionary storage
+
 let mutable dictionary = Map.empty<string, string>
 
-// File path for dictionary storage
+
 let dictionaryFile = "dictionary.json"
 
-// Helper function to normalize keys (trim and lowercase)
+
 let normalizeKey (key: string) = key.Trim().ToLower()
 
-// Save the dictionary to a JSON file
+
 let saveDictionaryToFile () =
     let json = JsonConvert.SerializeObject(dictionary)
     File.WriteAllText(dictionaryFile, json)
     MessageBox.Show("Dictionary saved!") |> ignore
 
-// Load the dictionary from a JSON file
+
 let loadDictionaryFromFile () =
     if File.Exists(dictionaryFile) then
         try
@@ -32,11 +32,6 @@ let loadDictionaryFromFile () =
             dictionary <- Map.empty<string, string>
     else
         MessageBox.Show("No dictionary file found.") |> ignore
-
-// Dictionary operations
-let addWord word definition =
-    let normalizedWord = normalizeKey word
-    dictionary <- dictionary.Add(normalizedWord, definition)
 
 
 let addWord word definition =
@@ -61,10 +56,14 @@ let deleteWord word =
 
 let searchWord word =
     let normalizedWord = normalizeKey word
-    dictionary.TryFind(normalizedWord)
+    // Find all matches for the word
+    dictionary
+    |> Map.toList
+    |> List.filter (fun (key, _) -> key.Contains(normalizedWord))
 
 let listAllWords () =
     dictionary |> Map.toList
+    
 let createMainForm () =
     let form = new Form(Text = "Dictionary", Width = 700, Height = 600, BackColor = Color.LightSteelBlue)
 
