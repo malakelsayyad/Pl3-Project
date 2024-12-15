@@ -145,3 +145,26 @@ Addbtn.Click.Add(fun _ ->
         else
             MessageBox.Show($"Word '{txtWord.Text}' not found!") |> ignore
     )
+
+
+Deletebtn.Click.Add(fun _ -> 
+    if deleteWord txtWord.Text then
+        saveDictionaryToFile()
+        MessageBox.Show($"Word '{txtWord.Text}' deleted successfully!") |> ignore
+        txtWord.Clear()
+        txtDefinition.Clear()
+        dgvWords.Rows.Clear() // Clear previous rows
+        for (word, definition) in listAllWords () do
+            dgvWords.Rows.Add(word, definition) |> ignore
+    else
+        MessageBox.Show($"Word '{txtWord.Text}' not found!") |> ignore
+)
+
+Searchbtn.Click.Add(fun _ -> 
+    let results = searchWord txtWord.Text
+    dgvWords.Rows.Clear()
+    for (word, definition) in results do
+        dgvWords.Rows.Add(word, definition) |> ignore
+    if results.IsEmpty then
+        MessageBox.Show($"No matches found for '{txtWord.Text}'!") |> ignore
+)
