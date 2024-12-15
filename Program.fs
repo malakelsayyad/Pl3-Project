@@ -168,3 +168,20 @@ Searchbtn.Click.Add(fun _ ->
     if results.IsEmpty then
         MessageBox.Show($"No matches found for '{txtWord.Text}'!") |> ignore
 )
+
+ListAllbtn.Click.Add(fun _ -> 
+        dgvWords.Rows.Clear() // Clear previous rows
+        for (word, definition) in listAllWords () do
+            dgvWords.Rows.Add(word, definition) |> ignore
+    )
+
+    form
+
+// Main entry point
+[<EntryPoint>]
+let main argv =
+    loadDictionaryFromFile()
+    let mainForm = createMainForm()
+    Application.Run(mainForm)
+    saveDictionaryToFile()
+    0
